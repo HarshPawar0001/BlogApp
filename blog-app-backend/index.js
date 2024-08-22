@@ -5,11 +5,7 @@ const { PORT } = require("./config/index");
 const connectDB = require("./config/connectDb");
 const routes = require("./routes/index");
 
-app.use(
-  cors({
-    credentials: true,
-  })
-);
+app.use(cors());
 
 app.use(express.json());
 
