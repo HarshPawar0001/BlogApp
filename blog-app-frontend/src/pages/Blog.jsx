@@ -90,7 +90,7 @@ export const BlogPage = () => {
     <>
       <Toaster />
       <div className="flex flex-col items-center flex-wrap gap-10 px-[7em] py-10 text-black -mt-2">
-        <p className="text-3xl font-semibold text-slate-500 capitalize mt-4">
+        <p className="text-3xl text-center font-semibold text-slate-500 capitalize mt-4">
           {data.title}
         </p>
         <pre className="text-justify text-wrap mt-6 font-sans">
@@ -98,6 +98,7 @@ export const BlogPage = () => {
         </pre>
       </div>
 
+      {/* code to write comment */}
       <div className="flex flex-col flex-wrap gap-4 px-[7em] py-10 w-full">
         <h2 className="text-xl font-semibold">Comments</h2>
         <form
@@ -120,7 +121,7 @@ export const BlogPage = () => {
         </form>
       </div>
 
-      {/* show comments here */}
+      {/* code to show comments */}
       <div className="flex flex-col flex-wrap gap-8 px-[7em] py-10 text-black -mt-2 mb-[2em]">
         {comments.length === 0 ? (
           <p>No comments</p>

@@ -62,21 +62,24 @@ export const MyBlogs = () => {
   };
 
   return (
-    <div className="flex flex-col flex-wrap gap-8 px-[7em] py-10 text-black -mt-2 mb-[2em]">
+    <div className="flex flex-col flex-wrap gap-8 px-[7em] py-10 text-black -mt-2 mb-[2em] 5xl:px-[5em] 4xl:px-[3em]">
       {/* <Toaster /> */}
       <h2 className="text-3xl text-center font-semibold text-slate-500">
         My Blogs
       </h2>
       {posts.length === 0 ? (
-        <h2 className="text-xl text-start font-semibold text-slate-500">
-          No blogs
-        </h2>
+        <div className="flex flex-col flex-wrap items-center justify-center gap-12 mt-[5em]">
+          <h2 className="text-xl text-start font-semibold text-slate-500">
+            No blogs
+          </h2>
+          <p>There is no blog. Please write!!</p>
+        </div>
       ) : (
-        <div className="flex flex-row flex-wrap items-center justify-center gap-8 mt-2">
+        <div className="flex flex-row flex-wrap items-center justify-center gap-8 mt-2 4xl:gap-6 lg:gap-2">
           {posts.map((post, index) => (
             <div
               key={index}
-              className="flex flex-col text-white bg-slate-500 gap-6 items-center justify-between shadow-md shadow-slate-700 rounded-sm p-7 w-[20em] h-[18em] break-words"
+              className="flex flex-col text-white bg-slate-500 gap-6 items-center justify-between shadow-md shadow-slate-700 rounded-sm p-7 w-[20em] h-[18em] break-words 4xl:w-[19em] 2xl:w-[18em]"
             >
               <div className="flex flex-col gap-6">
                 <p className="text-xl uppercase text-center">
@@ -91,13 +94,13 @@ export const MyBlogs = () => {
                 </p>
               </div>
 
-              <div className="flex items-center justify-center gap-5 w-full">
+              <div className="flex items-center justify-center gap-1 w-full">
                 <Link
                   to={`/blogs/${post._id}`}
                   state={{ id: post._id }}
-                  className="bg-teal-500 text-black font-semibold p-[0.4em] px-3 rounded-sm shadow-md"
+                  className="bg-teal-500 text-black font-semibold p-[0.4em] rounded-sm shadow-md"
                 >
-                  Show
+                  Read More
                 </Link>
                 <Link
                   to={`/my-blogs/${post._id}`}
@@ -106,13 +109,13 @@ export const MyBlogs = () => {
                     title: post.title,
                     description: post.description,
                   }}
-                  className="bg-yellow-100 text-black font-semibold p-[0.4em] rounded-sm shadow-md"
+                  className="bg-yellow-100 text-black font-semibold p-[0.4em] px-3 rounded-sm shadow-md 4xl:px-2"
                 >
                   Update
                 </Link>
                 <button
                   onClick={() => deleteBlog(post._id)}
-                  className="bg-red-300 text-black font-semibold p-[0.4em] px-3 rounded-sm shadow-md"
+                  className="bg-red-300 text-black font-semibold p-[0.4em] px-5 rounded-sm shadow-md 4xl:px-3"
                 >
                   Delete
                 </button>

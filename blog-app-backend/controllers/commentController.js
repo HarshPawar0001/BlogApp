@@ -5,8 +5,6 @@ const Comment = require("../models/comment");
 
 const createCommentPost = async (req, res) => {
   const { comment, postId } = req.body;
-  console.log("comment: ", comment);
-  console.log("postid: ", postId);
 
   if (!comment) {
     return errorHandler(res, 400, "Please write your comment.");
@@ -17,17 +15,7 @@ const createCommentPost = async (req, res) => {
 
     const user = await checkAuth(req, res);
 
-    // console.log("user: ", user);
-
-    // const comments = await Comment.create({
-    //   comment,
-    //   userId: user._id,
-    //   userName: user.name,
-    //   postId,
-    // });
-
     let commentPost = await Comment.findOne({ postId: postId });
-    console.log("commentPost1: ", commentPost);
 
     if (commentPost) {
       commentPost.comments.push({
@@ -49,8 +37,6 @@ const createCommentPost = async (req, res) => {
         postId,
       });
     }
-
-    console.log("commentPost2: ", commentPost);
 
     res.status(200).json({
       commentPost,

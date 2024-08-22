@@ -10,11 +10,6 @@ const {
   getPost,
   updatePost,
   deletePost,
-  createComment,
-  getAllComments,
-  // createNewPosts,
-  // createNewComments,
-  // getNewComments
 } = require("../controllers/postController");
 
 const {
@@ -36,16 +31,7 @@ router.get("/posts/:id", getPost);
 router.put("/posts/:id", updatePost);
 router.delete("/posts/:id", deletePost);
 
-// post comment routes
-// router.post("/comment", createComment);
-// router.get("/comments/:id", getAllComments);
-
 router.post("/comment", createCommentPost);
 router.get("/comments/:id", getAllCommentsPost);
-
-// router.post("/createNewPosts", createNewPosts);
-// router.post("/createNewComments", createNewComments);
-// router.get("/getNewComments/:postId", getNewComments)
-
 
 module.exports = router;

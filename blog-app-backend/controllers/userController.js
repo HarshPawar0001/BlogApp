@@ -8,7 +8,6 @@ const cookieSetter = require("../config/cookieSetter");
 
 const register = async (req, res) => {
   const { name, email, password } = req.body;
-
   console.log(name, email, password);
 
   if (!name || !email || !password) {
@@ -33,12 +32,9 @@ const register = async (req, res) => {
       password: hashedPassword,
     });
 
-    console.log("userf: ", user);
-
     console.log("JWT_SECRET_KEY: ", JWT_SECRET_KEY);
     // generate token and store in cookie
     const token = jwt.sign({ _id: user._id, name: user.name }, JWT_SECRET_KEY);
-    console.log("token: ", token);
     cookieSetter(res, token, true);
 
     res.status(200).json({
@@ -73,7 +69,6 @@ const login = async (req, res) => {
     }
 
     const token = jwt.sign({ _id: user._id, name: user.name }, JWT_SECRET_KEY);
-    console.log("tokenSign: ", token);
     cookieSetter(res, token, true);
 
     res.status(200).json({
