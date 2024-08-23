@@ -25,9 +25,7 @@ export const MyBlogs = () => {
 
     try {
       const res = await axios.get(`${ENDPOINT}/myposts/${id}`, {
-        headers: {
-          cookie: `token=${token}`
-        }
+        withCredentials: true,
       });
       console.log("posts: ", res.data.posts);
 
