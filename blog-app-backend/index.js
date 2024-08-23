@@ -4,9 +4,20 @@ const cors = require("cors");
 const { PORT } = require("./config/index");
 const connectDB = require("./config/connectDb");
 const routes = require("./routes/index");
+const allowedOrigins = ['http://localhost:5173', 'https://blog-web-application-psi.vercel.app/'];
 
-app.use(cors());
-
+const corsOrigin = {
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+};
+app.use(cors(corsOrigin));
+// app.use(cors());
 app.use(express.json());
 
 // set router
