@@ -12,6 +12,8 @@ export const LoginPage = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
+    console.log("submit handler");
+
     if (!email || !password) {
       return toast.error("Please Fill all the fields");
     }

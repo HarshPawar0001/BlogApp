@@ -60,16 +60,12 @@ const getAllPosts = async (req, res) => {
 };
 
 const getMyPosts = async (req, res) => {
-  const { id } = req.params;
-  console.log("this is my-blogs call");
   try {
     await connectDB();
 
-    // const user = await checkAuth(req, res);
+    const user = await checkAuth(req, res);
 
-    console.log("user:, ", user);
-
-    const posts = await Post.find({ userId: id }).sort({
+    const posts = await Post.find({ userId: user._id }).sort({
       updatedAt: -1,
       createdAt: -1,
     });
@@ -79,7 +75,7 @@ const getMyPosts = async (req, res) => {
     res.status(200).json({
       posts,
       success: true,
-      msg: `fetched all posts of ${user.name} user.`,
+      msg: `fetched all posts of user.`,
     });
   } catch (err) {
     console.log("error: ", err);
