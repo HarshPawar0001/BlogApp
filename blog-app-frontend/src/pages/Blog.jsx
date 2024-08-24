@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { FaUserCircle } from "react-icons/fa";
-import { jwtDecode } from "jwt-decode";
-import toast, { Toaster } from "react-hot-toast";
+// import { jwtDecode } from "jwt-decode";
+import toast from "react-hot-toast";
 import { ENDPOINT } from "../config/endpoint";
 
 export const BlogPage = () => {
@@ -11,7 +11,6 @@ export const BlogPage = () => {
   const [comments, setComments] = useState([]);
   const [inputComment, setInputComment] = useState("");
   const [flag, setFlag] = useState(false);
-  const commentDate = new Date();
 
   const location = useLocation();
   const { id } = location.state;
@@ -32,13 +31,16 @@ export const BlogPage = () => {
 
     const fetchComments = async () => {
       const res = await axios.get(`${ENDPOINT}/comments/${id}`);
-      console.log("data: ", res.data);
-      console.log("res.data.comments: ", res.data.comments);
-      console.log("res.data.comments.comments: ", res.data.comments.comments);
-
+      // console.log("data: ", res.data);
+      // console.log("res.data.comments: ", res.data.comments);
+      // console.log("res.data.comments.comments: ", res.data.comments.comments);
 
       if (res.data.success) {
-        setComments(res.data.comments.comments);
+        if(!res.data.comments){
+          setComments([]);
+        }else{
+          setComments(res.data.comments.comments);
+        }
       } else {
         console.log(res.data.msg);
       }
@@ -57,8 +59,8 @@ export const BlogPage = () => {
     if (!token) {
       return toast.error("Please login first to comment");
     }
-    const decodedToken = jwtDecode(token);
-    console.log(decodedToken);
+    // const decodedToken = jwtDecode(token);
+    // console.log(decodedToken);
 
     if (!inputComment) {
       return toast.error("Please write your comment");
@@ -71,7 +73,9 @@ export const BlogPage = () => {
           comment: inputComment,
           postId: id,
         },
-        { withCredentials: true }
+        { headers: {
+          token: token
+        } }
       );
 
       console.log("res.data: ", res.data);
@@ -88,7 +92,6 @@ export const BlogPage = () => {
 
   return (
     <>
-      <Toaster />
       <div className="flex flex-col items-center flex-wrap gap-10 px-[7em] py-10 text-black -mt-2">
         <p className="text-3xl text-center font-semibold text-slate-500 capitalize mt-4">
           {data.title}
@@ -145,7 +148,7 @@ export const BlogPage = () => {
                   </pre>
                 </div>
                 <p className="text-sm italic text-end py-2">
-                  {commentDate.toDateString(comment.createdAt)}
+                  {new Date(comment.createdAt).toDateString()}
                 </p>
               </div>
             ))}

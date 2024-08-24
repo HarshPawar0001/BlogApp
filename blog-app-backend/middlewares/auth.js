@@ -4,15 +4,12 @@ const jwt = require("jsonwebtoken");
 const { JWT_SECRET_KEY } = require("../config");
 
 const checkAuth = async (req, res) => {
-  const cookie = req.headers.cookie;
-  console.log("cookie: ", cookie);
+  const token = req.headers.token;
+  console.log("token: ", token);
 
-  if (!cookie) {
+  if (!token) {
     return errorHandler(res, 401, "Please login first");
   }
-  
-  const token = cookie.split("=")[1];
-  console.log("token: ", token);
 
   const decoded = jwt.verify(token, JWT_SECRET_KEY);
   console.log("decoded: ", decoded);

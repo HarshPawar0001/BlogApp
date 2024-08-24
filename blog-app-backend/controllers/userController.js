@@ -4,7 +4,6 @@ const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET_KEY } = require("../config/index");
-const cookieSetter = require("../config/cookieSetter");
 
 const register = async (req, res) => {
   const { name, email, password } = req.body;
@@ -32,10 +31,8 @@ const register = async (req, res) => {
       password: hashedPassword,
     });
 
-    console.log("JWT_SECRET_KEY: ", JWT_SECRET_KEY);
-    // generate token and store in cookie
+    // generate token
     const token = jwt.sign({ _id: user._id, name: user.name }, JWT_SECRET_KEY);
-    cookieSetter(res, token, true);
 
     res.status(200).json({
       token,
@@ -69,7 +66,6 @@ const login = async (req, res) => {
     }
 
     const token = jwt.sign({ _id: user._id, name: user.name }, JWT_SECRET_KEY);
-    cookieSetter(res, token, true);
 
     res.status(200).json({
       token,
@@ -83,18 +79,4 @@ const login = async (req, res) => {
   }
 };
 
-const logout = async(req, res) => {
-  try {
-    cookieSetter(res, null, false);
-
-    return res.status(200).json({
-      success: true,
-      msg: "User Successfully logged out",
-    });
-  } catch (err) {
-    console.log("err: ", err);
-    return errorHandler(res);
-  }
-};
-
-module.exports = { register, login, logout };
+module.exports = { register, login};

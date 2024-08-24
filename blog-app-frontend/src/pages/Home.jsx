@@ -7,9 +7,6 @@ import { Footer } from "../components/Footer";
 export const HomePage = () => {
   const [posts, setPosts] = useState([]);
   const [searchTitle, setSearchTitle] = useState("");
-  const postDate = new Date();
-
-  console.log("home page..");
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -25,16 +22,16 @@ export const HomePage = () => {
   }, [searchTitle]);
 
   return (
-    <div className="min-h-screen">
+    <>
       <div className="flex flex-col flex-wrap gap-8 px-[7em] py-10 text-black -mt-2 mb-[2em] 5xl:px-[5em] 4xl:px-[3em]">
         <h2 className="text-3xl text-center font-semibold text-slate-500">
           All Blogs
         </h2>
-        <div className="flex justify-center ">
+        <div className="flex justify-center">
           <input
             type="text"
             placeholder="search blog by a title"
-            className="border border-teal-400 outline-teal-500 text-slate-600 p-2 rounded-sm w-[30em] 3xl:w-[25em] xl:w-[20em]"
+            className="border border-teal-400 outline-teal-500 text-slate-600 p-2 rounded-sm w-[30em] 3xl:w-[20em] xl:w-[10px]"
             value={searchTitle}
             onChange={(e) => setSearchTitle(e.target.value)}
           />
@@ -77,7 +74,7 @@ export const HomePage = () => {
                         </span>
                       </p>
                       <p className="text-sm font-thin italic">
-                        {postDate.toDateString(post.createdAt)}
+                        {new Date(post.createdAt).toDateString()}
                       </p>
                     </div>
 
@@ -97,6 +94,6 @@ export const HomePage = () => {
       </div>
 
       <Footer />
-    </div>
+    </>
   );
 };

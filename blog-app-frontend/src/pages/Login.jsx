@@ -25,8 +25,8 @@ export const LoginPage = () => {
       });
 
       // console.log("res: ", res);
-      console.log("token: ", res.data.token);
       console.log("res.data: ", res.data);
+      console.log("token: ", res.data.token);
 
       localStorage.setItem("token", res.data.token);
 

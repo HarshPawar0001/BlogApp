@@ -1,8 +1,6 @@
 import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
 import { TbWritingSign } from "react-icons/tb";
 import toast, { Toaster } from "react-hot-toast";
-import { ENDPOINT } from "../config/endpoint";
 import { FaUserCircle } from "react-icons/fa";
 import { useState } from "react";
 import { jwtDecode } from "jwt-decode";
@@ -24,31 +22,19 @@ export const NavBar = () => {
   }
 
   const logoutHandler = async () => {
+    localStorage.removeItem("token");
+
     setActiveButton(null);
     setOpen(false);
-    try {
-      const res = await axios.get(ENDPOINT + "/logout");
 
-      console.log("res.data: ", res.data);
-
-      if (res.data.success) {
-        toast.success(res.data.msg);
-        setTimeout(() => {
-          navigate("/");
-        }, 700);
-        localStorage.removeItem("token");
-      } else {
-        console.log(res.data.message);
-      }
-    } catch (err) {
-      console.log(err);
-    }
+    toast.success("Successfully logged out");
+    setTimeout(() => {
+      navigate("/");
+    }, 700);
   };
 
-  console.log("openHamburger: ", openHamburger);
-
   return (
-    <div className="flex items-center justify-between py-3 px-[4em] h-16 w-full bg-teal-500 shadow-md shadow-slate-200 text-white ">
+    <div className="flex items-center justify-between py-3 px-[4em] h-16 w-full bg-teal-500 shadow-md shadow-slate-200 text-white md:px-[3em]">
       <Toaster />
       <Link
         to={"/"}
@@ -66,7 +52,7 @@ export const NavBar = () => {
       </Link>
 
       <div className="hidden lg:block">
-        <div className="hidden mr-[4em] lg:block">
+        <div className="hidden mr-[4em] lg:block md:mr-[3.8em]">
           <button
             onClick={() => setOpenHamburger((prev) => !prev)}
             className=""
@@ -88,14 +74,16 @@ export const NavBar = () => {
               Write
             </button>
 
-            {localStorage.getItem("token") ? (
+            {token ? (
               <div className="flex flex-col items-start gap-5">
                 <button
                   onClick={() => setOpen((open) => !open)}
                   className="p-2 flex items-center gap-2 "
                 >
                   <FaUserCircle />
-                  <p>{userName.length > 8 ? userName.substring(0,8): userName}</p>
+                  <p>
+                    {userName.length > 8 ? userName.substring(0, 8) : userName}
+                  </p>
                 </button>
                 {open && (
                   <div className=" text-white bg-teal-500 flex flex-col items-start absolute mt-[1.8em] -ml-[1em] w-[8em] p-[1em] gap-2 rounded-sm transition duration-1000 ease-in-out">
@@ -155,15 +143,15 @@ export const NavBar = () => {
           Write
         </button>
 
-        {localStorage.getItem("token") ? (
+        {token ? (
           <div className="flex items-center gap-8 w-[7em]">
             <button
               onClick={() => setOpen((open) => !open)}
               className="flex items-center gap-2"
             >
               <FaUserCircle />
-              <p>{userName.length > 8 ? userName.substring(0,8): userName}</p>
-              </button>
+              <p>{userName.length > 8 ? userName.substring(0, 8) : userName}</p>
+            </button>
             {open && (
               <div className=" text-white bg-teal-500 flex flex-col items-start absolute mt-[8em] p-[1em] w-[7em] gap-2 rounded-sm transition duration-1000 ease-in-out">
                 <button

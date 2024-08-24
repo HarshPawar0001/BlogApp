@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { ENDPOINT } from "../config/endpoint";
 
 export const WriteBlog = () => {
@@ -10,11 +10,20 @@ export const WriteBlog = () => {
   const [description, setDescription] = useState("");
   const navigate = useNavigate();
 
+  const token = localStorage.getItem("token");
+  console.log("token: ", token);
+
+  useEffect(() => {
+    if(!token) {
+      setTimeout(()=> {
+        navigate("/login");
+        toast.error("Please login first to write a blog");
+      }, 2000);
+    }
+  })
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    const token = localStorage.getItem("token");
-    console.log("token: ", token);
 
     if (!token) {
       return toast.error("Please login first to write a blog");
@@ -33,7 +42,11 @@ export const WriteBlog = () => {
           title,
           description,
         },
-        { withCredentials: true }
+        {
+          headers: {
+            token,
+          },
+        }
       );
 
       console.log("res: ", res);
@@ -52,7 +65,6 @@ export const WriteBlog = () => {
   return (
     <>
       <div className="flex items-center justify-center px-16 py-1">
-        <Toaster />
 
         <form
           onSubmit={submitHandler}

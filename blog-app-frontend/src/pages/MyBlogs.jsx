@@ -17,23 +17,19 @@ export const MyBlogs = () => {
       navigate("/");
     }
     const decodedToken = jwtDecode(token);
-    console.log(decodedToken);
+    console.log("decodedToken: ", decodedToken);
 
     id = decodedToken._id;
 
-    document.cookie = `token=${token}`;
-
     try {
       const res = await axios.get(`${ENDPOINT}/myposts/${id}`, {
-        // withCredentials: true,
         headers: {
-          cookie: `token=${token}`
+          token: token
         }
       });
-      console.log("posts: ", res.data.posts);
 
       const data = res.data.posts;
-      console.log("posts: ", data);
+      console.log("data posts: ", data);
       setPosts(data);
     } catch (err) {
       return toast.error(err);
@@ -66,7 +62,6 @@ export const MyBlogs = () => {
 
   return (
     <div className="flex flex-col flex-wrap gap-8 px-[7em] py-10 text-black -mt-2 mb-[2em] 5xl:px-[5em] 4xl:px-[3em]">
-      {/* <Toaster /> */}
       <h2 className="text-3xl text-center font-semibold text-slate-500">
         My Blogs
       </h2>

@@ -10,7 +10,9 @@ export default {
         '3xl': {'max': '832px'},
         '2xl': {'max': '768px'},
         'xl': {'max': '720px'},
-        'lg' : {'max':' 695px'}
+        'lg' : {'max':' 695px'},
+        'md' : {'max':' 650px'}
+
       }
     },
   },

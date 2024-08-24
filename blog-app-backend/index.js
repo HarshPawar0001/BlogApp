@@ -4,10 +4,7 @@ const cors = require("cors");
 const { PORT } = require("./config/index");
 const connectDB = require("./config/connectDb");
 const routes = require("./routes/index");
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://blog-web-application-psi.vercel.app",
-];
+const allowedOrigins = ["https://blog-web-application-psi.vercel.app"];
 
 const corsOrigin = {
   origin: function (origin, callback) {
@@ -22,7 +19,7 @@ const corsOrigin = {
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
 };
 app.use(cors(corsOrigin));
-// app.use(cors());
+
 app.use(express.json());
 
 // set router

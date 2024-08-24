@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { ENDPOINT } from "../config/endpoint";
 
 export const SignupPage = () => {
@@ -46,7 +46,6 @@ export const SignupPage = () => {
 
   return (
     <div className="flex items-center justify-center px-16 py-1">
-      <Toaster />
       <form
         onSubmit={submitHandler}
         className="flex flex-col gap-6 items-center justify-center mt-20 w-[30rem]"

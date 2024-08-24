@@ -57,7 +57,16 @@ const getAllCommentsPost = async (req, res) => {
     await connectDB();
 
     let comments = await Comment.findOne({ postId: id }).select("comments");
-    comments.comments.sort((a, b) => b.createdAt - a.createdAt); //sort comment in ascending order
+    if(!comments){
+      return res.status(200).json({
+        comments,
+        success: true,
+        msg: "No comments.",
+      });
+    }
+
+    //sort comment in ascending order
+    comments.comments.sort((a, b) => b.createdAt - a.createdAt); 
 
     res.status(200).json({
       comments,
