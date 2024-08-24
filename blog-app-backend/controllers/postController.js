@@ -65,7 +65,7 @@ const getMyPosts = async (req, res) => {
   try {
     await connectDB();
 
-    const user = await checkAuth(req, res);
+    // const user = await checkAuth(req, res);
 
     console.log("user:, ", user);
 
