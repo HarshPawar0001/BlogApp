@@ -32,7 +32,7 @@ const register = async (req, res) => {
     });
 
     // generate token
-    const token = jwt.sign({ _id: user._id, name: user.name }, JWT_SECRET_KEY);
+    const token = jwt.sign({ _id: user._id, name: user.name }, JWT_SECRET_KEY, {expiresIn: "5h"});
 
     res.status(200).json({
       token,
@@ -65,7 +65,7 @@ const login = async (req, res) => {
       return errorHandler(res, 404, "Invalid email or password");
     }
 
-    const token = jwt.sign({ _id: user._id, name: user.name }, JWT_SECRET_KEY);
+    const token = jwt.sign({ _id: user._id, name: user.name }, JWT_SECRET_KEY, {expiresIn: "5h"});
 
     res.status(200).json({
       token,
