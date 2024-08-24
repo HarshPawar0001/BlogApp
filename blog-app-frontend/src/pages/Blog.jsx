@@ -92,7 +92,7 @@ export const BlogPage = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center flex-wrap gap-10 px-[7em] py-10 text-black -mt-2">
+      <div className="flex flex-col items-center flex-wrap gap-10 px-[7em] py-10 text-black -mt-2 md:px-[3em]">
         <p className="text-3xl text-center font-semibold text-slate-500 capitalize mt-4">
           {data.title}
         </p>
@@ -102,7 +102,7 @@ export const BlogPage = () => {
       </div>
 
       {/* code to write comment */}
-      <div className="flex flex-col flex-wrap gap-4 px-[7em] py-10 w-full">
+      <div className="flex flex-col flex-wrap gap-4 px-[7em] py-10 w-full md:px-[3em]">
         <h2 className="text-xl font-semibold">Comments</h2>
         <form
           onSubmit={submitCommentHandler}
@@ -125,7 +125,7 @@ export const BlogPage = () => {
       </div>
 
       {/* code to show comments */}
-      <div className="flex flex-col flex-wrap gap-8 px-[7em] py-10 text-black -mt-2 mb-[2em]">
+      <div className="flex flex-col flex-wrap gap-8 px-[7em] py-10 text-black -mt-2 mb-[2em] md:px-[3em]">
         {comments.length === 0 ? (
           <p>No comments</p>
         ) : (
