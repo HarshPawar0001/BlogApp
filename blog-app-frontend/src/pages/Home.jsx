@@ -59,8 +59,8 @@ export const HomePage = () => {
                         : post.title}
                     </p>
                     <p className="">
-                      {post.description.length > 120
-                        ? post.description.substr(0, 120) + "..."
+                      {post.description.length > 100
+                        ? post.description.substr(0, 100) + "..."
                         : post.description}
                     </p>
                   </div>
