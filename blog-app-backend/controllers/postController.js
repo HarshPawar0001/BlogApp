@@ -60,6 +60,8 @@ const getAllPosts = async (req, res) => {
 };
 
 const getMyPosts = async (req, res) => {
+  const { id } = req.params;
+  console.log("this is my-blogs call");
   try {
     await connectDB();
 
@@ -67,7 +69,7 @@ const getMyPosts = async (req, res) => {
 
     console.log("user:, ", user);
 
-    const posts = await Post.find({ userId: user._id }).sort({
+    const posts = await Post.find({ userId: id }).sort({
       updatedAt: -1,
       createdAt: -1,
     });
