@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { ENDPOINT } from "../config/endpoint";
@@ -45,7 +45,7 @@ export const SignupPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center px-16 py-1">
+    <div className="flex items-center justify-center px-16 py-1">
       <form
         onSubmit={submitHandler}
         className="flex flex-col gap-6 items-center justify-center mt-20 w-[30rem]"
@@ -76,16 +76,6 @@ export const SignupPage = () => {
           Register
         </button>
       </form>
-
-      <div className="flex items-center gap-2 w-[30rem] mt-2 p-2">
-        <p className="text-sm">Have an account? </p>
-        <NavLink
-          to="/login"
-          className="text-sm text-blue-500 hover:underline underline-offset-4"
-        >
-          Log in
-        </NavLink>
-      </div>
     </div>
   );
 };
