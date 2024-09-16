@@ -7,6 +7,7 @@ import { Footer } from "../components/Footer";
 export const HomePage = () => {
   const [posts, setPosts] = useState([]);
   const [searchTitle, setSearchTitle] = useState("");
+  const currentDate  = new Date();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -74,7 +75,13 @@ export const HomePage = () => {
                         </span>
                       </p>
                       <p className="text-sm font-thin italic">
-                        {new Date(post.createdAt).toDateString()}
+                        {/* {new Date(post.createdAt).toDateString()} */}
+                        {
+                          
+                       ( console.log("days: ",Math.floor(((currentDate - new Date(post.createdAt))/(1000 * 60 * 60)/24))),
+                        console.log("hours: ",Math.floor(((currentDate - new Date(post.createdAt))/(1000 * 60 * 60)))),
+                        console.log("minutes: ",Math.floor(((currentDate - new Date(post.createdAt))/(1000 * 60 ))))
+                        )}
                       </p>
                     </div>
 

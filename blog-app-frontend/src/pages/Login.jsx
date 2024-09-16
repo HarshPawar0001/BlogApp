@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { ENDPOINT } from "../config/endpoint";
@@ -36,16 +36,16 @@ export const LoginPage = () => {
           navigate("/my-blogs");
         }, 700);
       } else {
-        toast.error(res.data.message);
+        toast.error(res.data.msg);
       }
     } catch (err) {
-      console.log(err.response.data.message);
-      toast.error(err.response.data.message);
+      console.log(err.response.data.msg);
+      toast.error(err.response.data.msg);
     }
   };
 
   return (
-    <div className="flex items-center justify-center px-16 py-1">
+    <div className="flex flex-col items-center justify-center px-16 py-1">
       <form
         onSubmit={submitHandler}
         className="flex flex-col gap-6 items-center justify-center mt-20 w-[30rem]"
@@ -69,6 +69,15 @@ export const LoginPage = () => {
           Login
         </button>
       </form>
+      <div className="flex items-center gap-2 w-[30rem] mt-2 p-2">
+        <p className="text-sm">Don&apos; t have an account? </p>
+        <NavLink
+          to="/signup"
+          className="text-sm text-blue-500 hover:underline underline-offset-4"
+        >
+          Sign up
+        </NavLink>
+      </div>
     </div>
   );
 };
