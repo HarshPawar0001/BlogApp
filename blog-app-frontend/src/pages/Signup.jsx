@@ -48,7 +48,7 @@ export const SignupPage = () => {
     <div className="flex items-center justify-center px-16 py-1">
       <form
         onSubmit={submitHandler}
-        className="flex flex-col gap-6 items-center justify-center mt-20 w-[30rem]"
+        className="flex flex-col gap-6 items-center justify-center mt-40 w-[30rem]"
       >
         <input
           type="text"

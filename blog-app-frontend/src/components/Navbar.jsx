@@ -34,7 +34,7 @@ export const NavBar = () => {
   };
 
   return (
-    <div className="flex items-center justify-between py-3 px-[4em] h-16 w-full bg-teal-500 shadow-md shadow-slate-200 text-white md:px-[3em]">
+    <div className="flex fixed items-center justify-between  py-2 pt-4 px-[4em] h-18 w-full bg-teal-500 shadow-sm shadow-slate-600 text-white md:px-[3em]">
       <Toaster />
       <Link
         to={"/"}

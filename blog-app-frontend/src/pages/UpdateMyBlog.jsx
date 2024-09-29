@@ -43,11 +43,11 @@ export const UpdateMyBlog = () => {
   };
 
   return (
-    <div className="flex items-center justify-center px-16 py-1">
+    <div className="flex items-center justify-center px-16 py-1 pb-20">
       {/* <Toaster /> */}
       <form
         onSubmit={submitHandler}
-        className="flex flex-col gap-6 items-center justify-center mt-20 w-[50rem]"
+        className="flex flex-col gap-6 items-center justify-center mt-40 w-[50rem]"
       >
         <input
           type="text"

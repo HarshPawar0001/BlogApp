@@ -62,7 +62,7 @@ export const MyBlogs = () => {
 
   return (
     <div className="flex flex-col flex-wrap gap-8 px-[7em] py-10 text-black -mt-2 mb-[2em] 5xl:px-[5em] 4xl:px-[3em]">
-      <h2 className="text-3xl text-center font-semibold text-slate-500">
+      <h2 className="text-3xl text-center font-semibold text-slate-500 mt-20">
         My Blogs
       </h2>
       {posts.length === 0 ? (

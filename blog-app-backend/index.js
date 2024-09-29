@@ -20,7 +20,7 @@ const corsOrigin = {
 };
 app.use(cors(corsOrigin));
 
-app.use(express.json());
+app.use(express.json()); // to parse the body data that client sends
 
 // set router
 app.use("/api", routes);

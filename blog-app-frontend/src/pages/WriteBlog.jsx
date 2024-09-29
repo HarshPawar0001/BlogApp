@@ -68,7 +68,7 @@ export const WriteBlog = () => {
 
         <form
           onSubmit={submitHandler}
-          className="flex flex-col gap-6 items-center justify-center mt-20 w-[50rem]"
+          className="flex flex-col gap-6 items-center justify-center mt-40 w-[50rem]"
         >
           <input
             type="text"

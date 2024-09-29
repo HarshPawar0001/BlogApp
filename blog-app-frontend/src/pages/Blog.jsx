@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
-import { FaUserCircle } from "react-icons/fa";
+// import { FaUserCircle } from "react-icons/fa";
 // import { jwtDecode } from "jwt-decode";
 import toast from "react-hot-toast";
 import { ENDPOINT } from "../config/endpoint";
@@ -36,9 +36,9 @@ export const BlogPage = () => {
       // console.log("res.data.comments.comments: ", res.data.comments.comments);
 
       if (res.data.success) {
-        if(!res.data.comments){
+        if (!res.data.comments) {
           setComments([]);
-        }else{
+        } else {
           setComments(res.data.comments.comments);
         }
       } else {
@@ -73,9 +73,11 @@ export const BlogPage = () => {
           comment: inputComment,
           postId: id,
         },
-        { headers: {
-          token: token
-        } }
+        {
+          headers: {
+            token: token,
+          },
+        }
       );
 
       console.log("res.data: ", res.data);
@@ -93,7 +95,7 @@ export const BlogPage = () => {
   return (
     <>
       <div className="flex flex-col items-center flex-wrap gap-10 px-[7em] py-10 text-black -mt-2 md:px-[3em]">
-        <p className="text-3xl text-center font-semibold text-slate-500 capitalize mt-4">
+        <p className="text-3xl text-center font-semibold text-slate-500 capitalize mt-20">
           {data.title}
         </p>
         <pre className="text-justify text-wrap mt-6 font-sans">
@@ -133,23 +135,28 @@ export const BlogPage = () => {
             {comments.map((comment) => (
               <div
                 key={comment._id}
-                className="border-b border-b-slate-200 mt-4"
+                className="border-b border-b-slate-200 mt-4 pb-4"
               >
-                <div className="flex items-center gap-2 text-lg text-slate-500">
-                  <FaUserCircle className="" />
-                  <p className="text-teal-500 font-serif">
-                    {comment.userName}
+                <div className="flex items-center gap-4 text-lg text-slate-500">
+                  {/* <FaUserCircle className="" />  */}
+                  <div className="flex items-center gap-2">
+                    <p className="uppercase bg-slate-400 mt-2 h-10 w-10 shadow-md font-semibold text-center text-white px-3 py-1 rounded-full">
+                      {comment.userName[0]}
+                    </p>
+                    <p className="text-teal-500 text-xl font-serif">
+                      {comment.userName}
+                    </p>
+                  </div>
+                  <p className="text-sm italic py-2 text-slate-400 font-serif">
+                    {new Date(comment.createdAt).toDateString()}
                   </p>
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <pre className="ml-7 text-justify text-wrap mt-1 font-sans italic">
+                  <pre className="ml-12 text-justify text-wrap mt-1 font-sans italic">
                     {comment.userComment}
                   </pre>
                 </div>
-                <p className="text-sm italic text-end py-2">
-                  {new Date(comment.createdAt).toDateString()}
-                </p>
               </div>
             ))}
           </div>
