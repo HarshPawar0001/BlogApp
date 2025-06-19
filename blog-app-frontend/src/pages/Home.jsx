@@ -2,25 +2,42 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { ENDPOINT } from "../config/endpoint";
-import { Footer } from "../components/Footer";
 
 export const HomePage = () => {
   const [posts, setPosts] = useState([]);
   const [searchTitle, setSearchTitle] = useState("");
-  const currentDate  = new Date();
+  const currentDate = new Date();
 
   useEffect(() => {
     const fetchPosts = async () => {
       const res = await axios.get(`${ENDPOINT}/posts?title=${searchTitle}`);
       console.log("posts: ", res.data);
 
-      // console.log("res.data: ", res.data);
       const data = res.data.posts;
       setPosts(data);
     };
 
     fetchPosts();
   }, [searchTitle]);
+
+  const formatTimeDifference = (createdAt) => {
+    const postDate = new Date(createdAt);
+    const diffMs = currentDate - postDate;
+
+    const minutes = Math.floor(diffMs / (1000 * 60));
+    const hours = Math.floor(diffMs / (1000 * 60 * 60));
+    const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+    if (days > 0) {
+      return `${days} day${days > 1 ? 's' : ''} ago`;
+    } else if (hours > 0) {
+      return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+    } else if (minutes > 0) {
+      return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+    } else {
+      return `just now`;
+    }
+  };
 
   return (
     <>
@@ -51,44 +68,48 @@ export const HomePage = () => {
               {posts.map((post, index) => (
                 <div
                   key={index}
-                  className="flex flex-col text-white bg-slate-500 gap-6 items-center justify-between shadow-md shadow-slate-700 rounded-sm p-7 w-[20em] h-[18em] break-words 4xl:w-[18em] 2xl:w-[18em] lg:p-[2em]"
+                  // --- MODERNIZED AND ELEGANT STYLING ---
+                  className="flex flex-col bg-white dark:bg-gray-700
+                             text-gray-800 dark:text-gray-100
+                             gap-6 items-center justify-between
+                             shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out
+                             rounded-xl p-7 w-[20em] h-[18em] break-words
+                             4xl:w-[18em] 2xl:w-[18em] lg:p-[2em]
+                             border border-gray-100 dark:border-gray-600
+                             transform hover:-translate-y-1" // Slight lift on hover
                 >
-                  <div className="flex flex-col gap-6">
-                    <p className="text-xl uppercase text-center">
+                  <div className="flex flex-col gap-4">
+                    <p className="text-xl uppercase text-center font-bold tracking-wide">
                       {post.title.length > 40
                         ? post.title.substr(0, 40) + "..."
                         : post.title}
                     </p>
-                    <p className="">
+                    <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
                       {post.description.length > 100
                         ? post.description.substr(0, 100) + "..."
                         : post.description}
                     </p>
                   </div>
 
-                  <div className="flex items-center justify-between w-full">
+                  <div className="flex items-center justify-between w-full mt-auto">
                     <div className="text-sm">
-                      <p className="text-teal-300 italic capitalize">
+                      <p className="text-teal-600 dark:text-teal-400 italic capitalize">
                         By:{" "}
-                        <span className="text-white font-light">
+                        <span className="font-semibold text-gray-700 dark:text-gray-200">
                           {post.userName}
                         </span>
                       </p>
-                      <p className="text-sm font-thin italic">
-                        {/* {new Date(post.createdAt).toDateString()} */}
-                        {
-                          
-                       ( console.log("days: ",Math.floor(((currentDate - new Date(post.createdAt))/(1000 * 60 * 60)/24))),
-                        console.log("hours: ",Math.floor(((currentDate - new Date(post.createdAt))/(1000 * 60 * 60)))),
-                        console.log("minutes: ",Math.floor(((currentDate - new Date(post.createdAt))/(1000 * 60 ))))
-                        )}
+                      <p className="text-xs font-light italic text-gray-500 dark:text-gray-400">
+                        {formatTimeDifference(post.createdAt)}
                       </p>
                     </div>
 
                     <Link
                       to={`/blogs/${post._id}`}
                       state={{ id: post._id }}
-                      className="bg-teal-500 text-black font-semibold p-[0.4em] rounded-sm shadow-md"
+                      className="bg-teal-500 hover:bg-teal-600 text-white font-semibold
+                                 py-2 px-4 rounded-lg shadow-md
+                                 transition-colors duration-200 ease-in-out"
                     >
                       Read More
                     </Link>
@@ -99,8 +120,6 @@ export const HomePage = () => {
           </div>
         )}
       </div>
-
-      <Footer />
     </>
   );
 };

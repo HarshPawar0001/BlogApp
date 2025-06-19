@@ -13,8 +13,9 @@ export const SignupPage = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    if (!name || !email || !password) {
-      return toast.error("Please Fill all the fields");
+    // Use .trim() for robust validation to catch inputs with only whitespace
+    if (!name.trim() || !email.trim() || !password.trim()) {
+      return toast.error("Please fill all the fields");
     }
 
     try {
@@ -33,46 +34,88 @@ export const SignupPage = () => {
       if (res.data.success) {
         toast.success(res.data.msg);
         setTimeout(() => {
-          navigate("/");
+          navigate("/"); // Navigate to home after successful registration
         }, 700);
       } else {
-        toast.error(res.data.msg);
+        // This 'else' block might be reached if the backend sends success:false
+        // but no error is thrown by axios.
+        toast.error(res.data.msg || "Registration failed. Please try again.");
       }
     } catch (err) {
-      // console.log("error: ", err.response.data.message);
-      toast.error(err.response.data.msg);
+      // Safely access error message from the response, or provide a generic one
+      const errorMessage = err.response?.data?.msg || "Registration failed. Please try again.";
+      toast.error(errorMessage);
+      console.error("Signup error:", err); // Log the full error for debugging
     }
   };
 
   return (
-    <div className="flex items-center justify-center px-16 py-1">
+    // Outer container for centering the form vertically and horizontally
+    <div className="flex items-center justify-center px-16 py-1 min-h-[calc(100vh-80px)]">
       <form
         onSubmit={submitHandler}
-        className="flex flex-col gap-6 items-center justify-center mt-40 w-[30rem]"
+        // Styling for the form as a card
+        className="flex flex-col gap-6 items-center justify-center mt-20 md:mt-40
+                   w-full max-w-sm p-8 rounded-lg shadow-xl
+                   bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100
+                   border border-gray-100 dark:border-gray-700 transition-colors duration-200"
       >
+        {/* Form Heading */}
+        <h2 className="text-3xl font-bold text-slate-700 dark:text-teal-400 mb-4">Register</h2>
+
+        {/* Username Input Field */}
         <input
           type="text"
-          placeholder="username"
-          className="border border-teal-400 text-slate-600 p-2 w-full rounded-md outline-teal-500"
+          placeholder="Username"
+          // Input field styling for modern look and contrast
+          className="border border-teal-400 dark:border-teal-600
+                     outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-teal-400
+                     text-gray-800 dark:text-gray-200
+                     bg-gray-50 dark:bg-gray-700
+                     p-3 w-full rounded-md transition-all duration-200
+                     placeholder-gray-400 dark:placeholder-gray-500"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
+
+        {/* Email Input Field */}
         <input
           type="email"
-          placeholder="email"
-          className="border border-teal-400 text-slate-600 p-2 w-full rounded-md outline-teal-500"
+          placeholder="Email Address"
+          // Input field styling for modern look and contrast
+          className="border border-teal-400 dark:border-teal-600
+                     outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-teal-400
+                     text-gray-800 dark:text-gray-200
+                     bg-gray-50 dark:bg-gray-700
+                     p-3 w-full rounded-md transition-all duration-200
+                     placeholder-gray-400 dark:placeholder-gray-500"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+
+        {/* Password Input Field */}
         <input
           type="password"
-          placeholder="password"
-          className="border border-teal-400 text-slate-600 p-2 w-full rounded-md outline-teal-500"
+          placeholder="Password"
+          // Input field styling for modern look and contrast
+          className="border border-teal-400 dark:border-teal-600
+                     outline-none focus:ring-2 focus:ring-teal-500 dark:focus:ring-teal-400
+                     text-gray-800 dark:text-gray-200
+                     bg-gray-50 dark:bg-gray-700
+                     p-3 w-full rounded-md transition-all duration-200
+                     placeholder-gray-400 dark:placeholder-gray-500"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <button className="bg-teal-500 text-white px-6 py-2 rounded-md w-full mt-2">
+        {/* Register Button */}
+        <button
+          type="submit" // Explicitly set type to submit
+          // Button styling for modern look and contrast
+          className="bg-teal-500 hover:bg-teal-600
+                     text-white font-semibold py-3 rounded-lg w-full mt-2
+                     shadow-md hover:shadow-lg transition-all duration-200 ease-in-out"
+        >
           Register
         </button>
       </form>

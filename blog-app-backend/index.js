@@ -4,8 +4,11 @@ const cors = require("cors");
 const { PORT } = require("./config/index");
 const connectDB = require("./config/connectDb");
 const routes = require("./routes/index");
-const allowedOrigins = ["https://blog-web-application-psi.vercel.app"];
-
+const allowedOrigins = [
+  "https://blog-web-application-psi.vercel.app",
+  "http://localhost:3000",
+  "http://localhost:5173" // <-- Add this line
+];
 const corsOrigin = {
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
