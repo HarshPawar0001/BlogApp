@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/blog-app-backend/(.*)" },
+    { "source": "/(.*)", "destination": "/blog-app-frontend/(.*)" }
+  ]
+}
