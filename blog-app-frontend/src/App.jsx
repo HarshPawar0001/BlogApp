@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'; // Import useState and useEffect
+import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LoginPage } from "./pages/Login";
 import { NavBar } from "./components/Navbar";
@@ -8,13 +8,11 @@ import { HomePage } from "./pages/Home";
 import { MyBlogs } from "./pages/MyBlogs";
 import { BlogPage } from "./pages/Blog";
 import { UpdateMyBlog } from "./pages/UpdateMyBlog";
-import { Toaster } from 'react-hot-toast'; // Assuming you use react-hot-toast for toasts
-import { Footer } from './components/Footer'; // <--- IMPORT THE FOOTER COMPONENT
+import { Toaster } from 'react-hot-toast';
+import { Footer } from './components/Footer';
 
 export const App = () => {
-  // 1. State to manage dark mode
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    // Initialize based on localStorage or system preference
     const storedTheme = localStorage.getItem('theme');
     if (storedTheme) {
       return storedTheme === 'dark';
@@ -22,9 +20,8 @@ export const App = () => {
     return window.matchMedia('(prefers-color-scheme: dark)').matches;
   });
 
-  // 2. Effect to apply/remove the 'dark' class on the html element
   useEffect(() => {
-    const root = window.document.documentElement; // Get the html element
+    const root = window.document.documentElement;
     if (isDarkMode) {
       root.classList.add('dark');
       localStorage.setItem('theme', 'dark');
@@ -32,28 +29,30 @@ export const App = () => {
       root.classList.remove('dark');
       localStorage.setItem('theme', 'light');
     }
-  }, [isDarkMode]); // Re-run effect when isDarkMode changes
+  }, [isDarkMode]);
 
-  // 3. Function to toggle dark mode
   const toggleDarkMode = () => {
     setIsDarkMode(prevMode => !prevMode);
   };
 
+  // --- DEBUGGING ADDITION IN App.jsx ---
+  useEffect(() => {
+    // This log confirms if REACT_APP_API_URL is available at the App component level
+    // For specific API call debugging, see the endpoint.js update below
+    console.log("App.jsx Debug: process.env.REACT_APP_API_URL =", process.env.REACT_APP_API_URL);
+  }, []);
+  // --- END DEBUGGING ADDITION ---
+
   return (
-    // Add a div to wrap everything so that the background and text color of the entire app can toggle
-    // This is often done at a higher level, like a root div
     <div className={`${isDarkMode ? 'bg-gray-800 text-gray-200' : 'bg-white text-gray-900'} min-h-screen transition-colors duration-500`}>
       <BrowserRouter>
-        <Toaster /> {/* Place your Toaster component here */}
+        <Toaster />
 
-        {/* Pass the dark mode state and toggle function to NavBar */}
         <NavBar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
 
-        {/* This div helps ensure your content pushes the footer down.
-            Adjust padding-top based on your NavBar's height. */}
-        <div className="pt-20"> {/* Adjust pt-XX based on your navbar's height to prevent content overlap */}
+        <div className="pt-20">
           <Routes>
-            <Route path="/" element={<HomePage isDarkMode={isDarkMode} />} /> {/* Pass isDarkMode to HomePage if it needs it */}
+            <Route path="/" element={<HomePage isDarkMode={isDarkMode} />} />
             <Route path="/login" element={<LoginPage isDarkMode={isDarkMode} />} />
             <Route path="/signup" element={<SignupPage isDarkMode={isDarkMode} />} />
             <Route path="/writeblog" element={<WriteBlog isDarkMode={isDarkMode} />} />
@@ -63,7 +62,6 @@ export const App = () => {
           </Routes>
         </div>
 
-        {/* Render the Footer component and pass the isDarkMode prop */}
         <Footer isDarkMode={isDarkMode} />
       </BrowserRouter>
     </div>
