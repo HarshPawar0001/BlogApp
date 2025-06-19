@@ -35,11 +35,11 @@ export const App = () => {
     setIsDarkMode(prevMode => !prevMode);
   };
 
-  // --- DEBUGGING ADDITION IN App.jsx ---
+  // --- DEBUGGING ADDITION IN App.jsx (CHANGED FOR VITE) ---
   useEffect(() => {
-    // This log confirms if REACT_APP_API_URL is available at the App component level
-    // For specific API call debugging, see the endpoint.js update below
-    console.log("App.jsx Debug: process.env.REACT_APP_API_URL =", process.env.REACT_APP_API_URL);
+    // This log confirms if VITE_APP_API_URL is available at the App component level
+    // For specific API call debugging, check the endpoint.js update
+    console.log("App.jsx Debug: process.env.VITE_APP_API_URL =", process.env.VITE_APP_API_URL);
   }, []);
   // --- END DEBUGGING ADDITION ---
 
