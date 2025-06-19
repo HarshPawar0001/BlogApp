@@ -4,11 +4,15 @@ const cors = require("cors");
 const { PORT } = require("./config/index");
 const connectDB = require("./config/connectDb");
 const routes = require("./routes/index");
+
+// --- IMPORTANT CHANGE HERE: Updated Frontend URL for CORS ---
 const allowedOrigins = [
-  "https://blog-web-application-psi.vercel.app",
+  "https://blog-app-frontend-six-eta.vercel.app", // <--- THIS IS THE UPDATED URL
   "http://localhost:3000",
-  "http://localhost:5173" // <-- Add this line
+  "http://localhost:5173"
 ];
+// --- END IMPORTANT CHANGE ---
+
 const corsOrigin = {
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
