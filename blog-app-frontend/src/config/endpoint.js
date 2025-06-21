@@ -1,5 +1,5 @@
 // blog-app-frontend/src/config/endpoint.js
-
+console.log("Vercel Build Environment Variables:", process.env); // <--- ADD THIS LINE TEMPORARILY!
 const ENDPOINT = process.env.NODE_ENV === 'development'
   ? 'http://localhost:8000/api' // For local development
   : process.env.VITE_APP_API_URL; // <--- CHANGE THIS LINE! This will take the URL from Vercel's env var.
