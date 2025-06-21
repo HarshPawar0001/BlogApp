@@ -4,15 +4,13 @@ const cors = require("cors");
 const { PORT } = require("./config/index");
 const connectDB = require("./config/connectDb");
 const routes = require("./routes/index");
-
-// --- IMPORTANT CHANGE HERE: Updated Frontend URL for CORS ---
 const allowedOrigins = [
-  "https://blog-app-frontend-six-eta.vercel.app", // <--- THIS IS THE UPDATED URL
+   "https://blog-web-application-psi.vercel.app", // Keep if this is still a valid frontend deployment
   "http://localhost:3000",
-  "http://localhost:5173"
+  "http://localhost:5173", // For Vite local development
+  "https://blog-app-frontend-six-eta.vercel.app", // <-- Add this frontend production domain
+  "https://blog-app-frontend-git-main-harshpawar0001s-projects.vercel.app" // <-- Add this frontend preview/main branch domain
 ];
-// --- END IMPORTANT CHANGE ---
-
 const corsOrigin = {
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
