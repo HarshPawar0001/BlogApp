@@ -3,10 +3,8 @@
     {
       "source": "/api/(.*)",
       "destination": "https://blog-app-backend-pied-eta.vercel.app/api/$1"
+    
     },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
+    { "source": "/(.*)", "destination": "/blog-app-frontend/(.*)" }
   ]
 }
